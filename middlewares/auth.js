@@ -1,11 +1,12 @@
 const { getUser } = require("../service/auth");
 
 async function restrictedtologgedinuseronly (req,res,next) {
+    
+    const userid=req.headers["authorization"];
    
-    const userid=req.cookies.uid;
-    console.log(userid);
 
     if(!userid) return res.redirect('/login');
+    const token=userid.split('Bearer ')[1];
 
     const user=getUser(userid);
     
@@ -15,11 +16,12 @@ async function restrictedtologgedinuseronly (req,res,next) {
     next();
 }
 async function checkAuth(req,res,next) {
-    
-     const userid=req.cookies.uid;
-     const user=getUser(userid);
+    const userid=req.headers["authorization"];
+    //  const userid=req.cookies.uid;
+     const token=userid.split('Bearer ')[1];
+     const user=getUser(token);
      req.user=user;
-    next();
+     next();
 }
 
 module.exports={

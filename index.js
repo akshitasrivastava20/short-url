@@ -9,7 +9,7 @@ const urlrouter=require('./routes/url')
 const URL=require('./models/url');
 const staticRouter=require("./routes/staticRouter");
 const userRouter=require("./routes/user");
-const {restrictedtologgedinuseronly}=require('./middlewares/auth')
+const {restrictedtologgedinuseronly,checkAuth}=require('./middlewares/auth')
 
 
 connectDb("mongodb://127.0.0.1:27017/short-url").then(()=>
