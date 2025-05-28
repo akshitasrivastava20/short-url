@@ -21,9 +21,9 @@ async function handlelogin(req,res){
      });}
  
      const token=setUser(user);
-    //  res.cookie("uid",token);
-    //  return res.redirect("/");
-    res.json({token});
+     res.cookie("uid",token);
+     return res.redirect("/");
+    // res.json({token});
 
 }
 module.exports={

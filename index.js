@@ -9,7 +9,8 @@ const urlrouter=require('./routes/url')
 const URL=require('./models/url');
 const staticRouter=require("./routes/staticRouter");
 const userRouter=require("./routes/user");
-const {restrictedtologgedinuseronly,checkAuth}=require('./middlewares/auth')
+const {checkforAuthentication,
+    restrictTo}=require('./middlewares/auth')
 
 
 connectDb("mongodb://127.0.0.1:27017/short-url").then(()=>
@@ -24,8 +25,8 @@ app.use(cookieParser());
 
 
 app.use("/user",userRouter);
-app.use("/",checkAuth,staticRouter);
-app.use("/url",restrictedtologgedinuseronly,urlrouter);
+app.use("/",staticRouter);
+app.use("/url",restrictTo(["NORMAL"]),urlrouter);
 
 app.get("/url/:shortId",async(req,res)=>{
     const shortId=req.params.shortId;
