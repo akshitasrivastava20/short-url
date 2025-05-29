@@ -13,6 +13,8 @@ async function handlesignup(req,res) {
 
     
 }
+
+
 async function handlelogin(req,res){
      const {email,password}=req.body;
      const user = await User.findOne({email,password});
